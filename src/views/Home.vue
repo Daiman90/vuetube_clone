@@ -1,18 +1,44 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <div class="space"></div>
+    <div class="space"></div>
+    <tags @filter="getFiltered"/>
+    <div class="space"></div>
+    <div class="space"></div>
+    <Listings :filtered="filtered" @loading="setLoading" />
+    <Loading :class="{ display : loading }" />
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue';
+import Tags from '@/components/Tags.vue';
+import Loading from '@/components/Loading.vue';
+import Listings from '@/components/Listings.vue';
 
 export default {
   name: 'home',
+  data: () => ({
+    loading: false,
+    filtered: [],
+  }),
   components: {
-    HelloWorld,
+    Tags,
+    Listings,
+    Loading,
+  },
+  methods: {
+    setLoading(loading) {
+      this.loading = loading;
+    },
+    getFiltered(filtered) {
+      this.filtered = filtered;
+    },
   },
 };
 </script>
+
+<style>
+.display {
+  display: '';
+}
+</style>
